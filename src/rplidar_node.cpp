@@ -53,7 +53,7 @@ rplidar_node::rplidar_node(const rclcpp::NodeOptions & options)
   flip_x_axis_ = this->declare_parameter("flip_x_axis", false);
   scan_mode_ = this->declare_parameter("scan_mode", std::string());
   topic_name_ = this->declare_parameter("topic_name", std::string("scan"));
-  auto_standby_ = this->declare_parameter("auto_standby", true);
+  auto_standby_ = this->declare_parameter("auto_standby", false);
 
   RCLCPP_INFO(
     this->get_logger(),
