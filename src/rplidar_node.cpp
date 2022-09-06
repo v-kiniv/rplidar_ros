@@ -105,7 +105,7 @@ rplidar_node::rplidar_node(const rclcpp::NodeOptions & options)
   }
 
   /* start motor and scanning */
-  if(!auto_standby_) {
+  if (!auto_standby_) {
     this->start();
   }
 
@@ -242,8 +242,10 @@ bool rplidar_node::checkRPLIDARHealth() const
 
 void rplidar_node::stop_motor(const EmptyRequest req, EmptyResponse res)
 {
-  if(auto_standby_) {
-    RCLCPP_INFO(this->get_logger(), "Ingnoring stop_motor request because rplidar_node is in 'auto standby' mode");
+  if (auto_standby_) {
+    RCLCPP_INFO(
+      this->get_logger(),
+      "Ingnoring stop_motor request because rplidar_node is in 'auto standby' mode");
     return;
   }
   RCLCPP_DEBUG(this->get_logger(), "Call to '%s'", __FUNCTION__);
@@ -253,8 +255,10 @@ void rplidar_node::stop_motor(const EmptyRequest req, EmptyResponse res)
 
 void rplidar_node::start_motor(const EmptyRequest req, EmptyResponse res)
 {
-  if(auto_standby_) {
-    RCLCPP_INFO(this->get_logger(), "Ingnoring start_motor request because rplidar_node is in 'auto standby' mode");
+  if (auto_standby_) {
+    RCLCPP_INFO(
+      this->get_logger(),
+      "Ingnoring start_motor request because rplidar_node is in 'auto standby' mode");
     return;
   }
   RCLCPP_DEBUG(this->get_logger(), "Call to '%s'", __FUNCTION__);
@@ -327,11 +331,11 @@ void rplidar_node::publish_loop()
   size_t count = 360 * 8;
   auto nodes = std::make_unique<rplidar_response_measurement_node_hq_t[]>(count);
 
-  if(auto_standby_) {
-    if(m_publisher->get_subscription_count() > 0 && !m_running) {
+  if (auto_standby_) {
+    if (m_publisher->get_subscription_count() > 0 && !m_running) {
       this->start();
-    } else if(m_publisher->get_subscription_count() == 0) {
-      if(m_running) {
+    } else if (m_publisher->get_subscription_count() == 0) {
+      if (m_running) {
         this->stop();
       }
       return;
